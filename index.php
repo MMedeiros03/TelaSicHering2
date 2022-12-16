@@ -12,29 +12,28 @@
 
 <body>
     <div class="form-check">
-        <input class="form-check-input" type="radio" value="true" name="flexRadioDefault" id="flexRadioDefault1">
-        <label class="form-check-label" for="flexRadioDefault1">Devolu��o TMD</label>
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+        <label class="form-check-label" for="flexRadioDefault1">Devolução TMD</label>
     </div>
     <div class="form-check">
-        <input class="form-check-input" type="radio" value="true" name="flexRadioDefault" id="flexRadioDefault2" checked>
-        <label class="form-check-label" for="flexRadioDefault2">Devolu��o Normal</label>
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+        <label class="form-check-label" for="flexRadioDefault2">Devolução Normal</label>
     </div>
     <script>
-        var valueCk = false;
-        var checkbox = document.getElementsByName("flexRadioDefault");
-        for (let i = 0; i < checkbox.length; i++) {
-            if (checkbox[i].checked) {
-                var valueCk = checkbox[i].checked;
-            }
-        }
+        $(document).ready(function() {
+            $("#flexRadioDefault1, #flexRadioDefault2").click((e) => {
+                const [radioButton] = $("#flexRadioDefault1");
 
-        $("#flexRadioDefault2").click((e) => {
-            e.preventDefault();
-            let dados = valueCk;
-            $.post("index.php", dados, function(result, status) {
-                console.log(status);
-                console.log(result);
-            })
+                radioButton.checked
+
+                if (radioButton.checked) {
+                    $("#buttonsGroup1").css("display", "none");
+                    $("#buttonsGroup2").css("display", "grid");
+                } else {
+                    $("#buttonsGroup1").css("display", "grid");
+                    $("#buttonsGroup2").css("display", "none");
+                }
+            });
         });
     </script>
 
@@ -63,70 +62,57 @@
                 });
             </script>
 
-            <?php
-            $dados = $_POST;
-            $x = 1;
-            if ($x >= 1) { // se for devolu��o normal
-                echo '<div class="grid" style="display: grid;
+
+            <div class="grid" id="buttonsGroup1" style="display: none;
                         grid-template-columns: repeat(1, auto);
                         grid-row-gap: 1px;">
-
-                            <div class="grid" style="display: grid;
+                <div class="grid" style="display: grid;
                             grid-template-columns: repeat(5,max-content);
                             justify-content: center;">
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Liberar</button></div>
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Excluir</button></div>
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Gerar Excel</button></div>
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Copiar</button></div>
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Gravar</button></div>
-                            </div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Liberar</button></div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Excluir</button></div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Gerar Excel</button></div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Copiar</button></div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Gravar</button></div>
+                </div>
 
-                            <div class="grid" style="display: grid;
+                <div class="grid" style="display: grid;
                             grid-template-columns: repeat(3, auto);
                             grid-row-gap: 1px;
                             align-items: center;">
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Nota Refaturamento</button></div>
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Voltar Situação da Proposta</button></div>
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Juntar Subpropostas</button></div>
-                            </div>
-
-                        </div>';
-            } else { //se for devolu��o tmd
-                echo '<div class="grid" style="display: grid;
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Nota Refaturamento</button></div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Voltar Situação da Proposta</button></div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Juntar Subpropostas</button></div>
+                </div>
+            </div>
+            <div class="grid" id="buttonsGroup2" style="display: grid;
                         grid-template-columns: repeat(1, auto);
                         grid-row-gap: 1px;">
 
-                            <div class="grid" style="display: grid;
+                <div class="grid" style="display: grid;
                             grid-template-columns: repeat(5,max-content);
                             justify-content: center;">
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Liberar</button></div>
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Excluir</button></div>
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Gerar Excel</button></div>
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Copiar</button></div>
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Gravar</button></div>
-                            </div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Liberar</button></div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Excluir</button></div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Gerar Excel</button></div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Copiar</button></div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Gravar</button></div>
+                </div>
 
-                            <div class="grid" style="display: grid;
+                <div class="grid" style="display: grid;
                             grid-template-columns: repeat(3, auto);
                             grid-row-gap: 1px;
                             align-items: center;">
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Nota Refaturamento</button></div>
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Converter em Dev.Comercial</button></div>
-                                <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Juntar Subpropostas</button></div>
-                            </div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Nota Refaturamento</button></div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Converter em Dev.Comercial</button></div>
+                    <div style="margin-left: 2px;"><button type="submit" class="btn btn-primary">Juntar Subpropostas</button></div>
+                </div>
 
-                        </div>';
-            }
-            ?>
+            </div>
         </div>
 
         <hr>
 
-        <?php
-        $x = 1;
-
-        if ($x >= 1) {
-            echo '
         <div style="overflow-y: scroll; max-height: 200px ;" >
             <table class="table table-striped"> 
                 <thead>
@@ -162,68 +148,26 @@
                         <td>teste</td>
                         <td>teste</td>
                         <td>teste</td>
+                        <td>teste</td>
+                        <td>teste</td>
+                        <td>teste</td>
+                        <td>teste</td>
+                        <td>teste</td>
+                        <td>teste</td>
+                        <td>teste</td>
                     </tr>
+                    <tr>
+                        <th style="align-items:center" scope="col"><input type="checkbox"></th>
+                        <td>teste</td>
+                        <td>teste</td>
+                        <td>teste</td>
+                        <td>teste</td>
+                    </tr>
+                    
                 </tbody>
             </table>
-        </div>';
-        } else {
-            $list = [
-                "v1" => "testeARTIGO",
-                "v2" => "testeTam",
-                "v3" => "testeQtde",
-                "v4" => "teste1",
-            ];
-            echo '
-            <div style="overflow-y: scroll; max-height: 200px ;" >
-                <table class="table table-striped"> 
-                    <thead>
-                        <tr>
-                            <th scope="col">Excluir</th>
-                            <th scope="col">Artigo</th>
-                            <th scope="col">Tam</th>
-                            <th scope="col">Qtde</th>
-                            <th scope="col">Valor</th>
-                            <th scope="col">Valor Total</th>
-                            <th scope="col">Valor IPI</th>
-                            <th scope="col">Valor Sub.Trib</th>
-                            <th scope="col">Valor Desc.ZF</th>
-                            <th scope="col">Aliq ICMS</th>
-                            <th scope="col">Valor ICMS</th>
-                            <th scope="col">Centro</th>
-                        </tr>
-                    </thead>
-
-                    <style type="text/css">
-                        td {
-                            white-space: nowrap;
-                            text-overflow: ellipsis;
-                            overflow: hidden;
-                            max-width: 0.1px;
-                        }
-                    </style>
-
-                    <tbody>
-                        <tr>
-                            <th scope="col"><input type="checkbox"></th>
-                            <td>teste</td>
-                            <td>teste</td>
-                            <td>teste</td>
-                            <td>teste</td>
-                            <td>teste</td>
-                            <td>teste</td>
-                            <td>teste</td>
-                            <td>teste</td>
-                            <td>teste</td>
-                            <td>teste</td>
-                            <td>teste</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>';
-        }
-
-
-        ?>
+        </div>
+        
         <form>
             <div class="row g-3 ">
                 <div class="col-auto">
