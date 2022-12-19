@@ -113,8 +113,8 @@
 
         <hr>
 
-        <div style="overflow-y: scroll; max-height: 200px ;" >
-            <table class="table table-striped"> 
+        <div style="overflow-y: scroll; max-height: 200px ;">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col"></th>
@@ -133,41 +133,56 @@
                 </thead>
 
                 <style type="text/css">
-                    td {
+                    td{
                         white-space: nowrap;
                         text-overflow: ellipsis;
                         overflow: hidden;
                         max-width: 0.1px;
+                    }
+                    .td_input{
+                        background-color: white !important;
+
+                    }
+                    .td_input input{
+                        border: none;
+                        background-color: transparent;
                     }
                 </style>
 
                 <tbody>
                     <tr>
                         <th style="align-items:center" scope="col"><input type="checkbox"></th>
-                        <td>teste</td>
-                        <td>teste</td>
-                        <td>teste</td>
-                        <td>teste</td>
-                        <td>teste</td>
-                        <td>teste</td>
-                        <td>teste</td>
-                        <td>teste</td>
-                        <td>teste</td>
-                        <td>teste</td>
-                        <td>teste</td>
+                        <td>artigo</td>
+                        <td>tamanho</td>
+                        <td class="td_input"><input type="text" value="quantidade"></input></td>
+                        <td>valor</td>
+                        <td>valor total</td>
+                        <td class="td_input">valor IPI</td>
+                        <td class="td_input">valor Sub.Trib</td>
+                        <td>Valor Desc.ZF</td>
+                        <td class="td_input">Aliq ICMS</td>
+                        <td class="td_input">Valor ICMS</td>
+                        <td>Centro</td>
                     </tr>
                     <tr>
-                        <th style="align-items:center" scope="col"><input type="checkbox"></th>
-                        <td>teste</td>
-                        <td>teste</td>
-                        <td>teste</td>
-                        <td>teste</td>
+                    <th style="align-items:center" scope="col"><input type="checkbox"></th>
+                        <td>artigo</td>
+                        <td>tamanho</td>
+                        <td class="td_input"><input type="text" value="quantidade"></input></td>
+                        <td>valor</td>
+                        <td>valor total</td>
+                        <td class="td_input">valor IPI</td>
+                        <td class="td_input">valor Sub.Trib</td>
+                        <td>Valor Desc.ZF</td>
+                        <td class="td_input">Aliq ICMS</td>
+                        <td class="td_input">Valor ICMS</td>
+                        <td>Centro</td>
                     </tr>
-                    
+
                 </tbody>
             </table>
         </div>
-        
+
         <form>
             <div class="row g-3 ">
                 <div class="col-auto">
