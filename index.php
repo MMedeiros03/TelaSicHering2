@@ -39,13 +39,13 @@
 
     <div style="background-color: rgba(218, 219, 219, 0.61);">
         <div style="justify-content: space-evenly; display: flex; margin-top: 1px; align-items: center;">
-            <form>
+            <form id="HeadForm">
                 <div class="row g-3 align-items-center">
                     <div class="col-auto">
                         <label class="col-form-label">Nr da SubProposta</label>
                     </div>
                     <div class="col-auto">
-                        <input type="number" name="id" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                        <input type="number" name="id" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" required>
                     </div>
                     <div class="col-auto">
                         <button type="submit" id="btn_consulta" class="btn btn-primary">Consulta</button>
@@ -53,12 +53,32 @@
                 </div>
             </form>
             <script type="text/javascript">
+                function verifyEmptyFields() {
+                    // Get all required fields
+                    var requiredFields = $('#HeadForm [required]');
+                    // Check if any of the required fields are empty
+                    var emptyFields = requiredFields.filter(function() {
+                        return !this.value;
+                    });
+                    // If there are empty fields, prevent the form from being submitted
+                    if (emptyFields.length > 0) {
+                        $("#inputPassword6").css("border", "1px solid red").attr('placeholder', 'value is required');
+                        return true;
+                    } else {
+                        return false;
+                    }
+
+                };
+
                 $("#btn_consulta").click((e) => {
                     e.preventDefault();
-                    $.get("form.php", function(result, status) {
-                        console.log(status);
-                        console.log(result);
-                    })
+                    if (!verifyEmptyFields()) {
+                        $.get("form.php", function(result, status) {
+                            $("#inputPassword6").css("border", "1px solid transparent");
+                            console.log(status);
+                            console.log(result);
+                        });
+                    }
                 });
             </script>
 
@@ -133,52 +153,68 @@
                 </thead>
 
                 <style type="text/css">
-                    td{
+                    td {
                         white-space: nowrap;
                         text-overflow: ellipsis;
                         overflow: hidden;
                         max-width: 0.1px;
                     }
-                    .td_input{
+
+                    .td_input {
                         background-color: white !important;
 
                     }
-                    .td_input input{
+
+                    .td_input input {
                         border: none;
                         background-color: transparent;
                     }
                 </style>
 
                 <tbody>
-                    <tr>
-                        <th style="align-items:center" scope="col"><input type="checkbox"></th>
-                        <td>artigo</td>
-                        <td>tamanho</td>
-                        <td class="td_input"><input type="text" value="quantidade"></input></td>
-                        <td>valor</td>
-                        <td>valor total</td>
-                        <td class="td_input">valor IPI</td>
-                        <td class="td_input">valor Sub.Trib</td>
-                        <td>Valor Desc.ZF</td>
-                        <td class="td_input">Aliq ICMS</td>
-                        <td class="td_input">Valor ICMS</td>
-                        <td>Centro</td>
-                    </tr>
-                    <tr>
-                    <th style="align-items:center" scope="col"><input type="checkbox"></th>
-                        <td>artigo</td>
-                        <td>tamanho</td>
-                        <td class="td_input"><input type="text" value="quantidade"></input></td>
-                        <td>valor</td>
-                        <td>valor total</td>
-                        <td class="td_input">valor IPI</td>
-                        <td class="td_input">valor Sub.Trib</td>
-                        <td>Valor Desc.ZF</td>
-                        <td class="td_input">Aliq ICMS</td>
-                        <td class="td_input">Valor ICMS</td>
-                        <td>Centro</td>
-                    </tr>
+                        <?php
 
+                        $list = [
+                            0 => [
+                                "artigo" => "teste",
+                                "tam" => "teste",
+                                "qtde" => "teste",
+                                "valor" => "teste",
+                                "valortotal" => "teste",
+                                "valoripi" => "teste",
+                                "valorSubTrib" => "teste",
+                                "aliqicms" => "teste",
+                                "ValorICMS" => "teste"
+                            ],
+                            1 => [ 
+                                "artigo" => "teste",
+                                "tam" => "teste",
+                                "qtde" => "teste",
+                                "valor" => "teste",
+                                "valortotal" => "teste",
+                                "valoripi" => "teste",
+                                "valorSubTrib" => "teste",
+                                "aliqicms" => "teste",
+                                "ValorICMS" => "teste"
+                            ]
+                        ];
+                        $rows = "";
+                        foreach ($list as $line) {
+                            $rows .= "<tr> <th style='align-items:center' scope='col'><input type='checkbox'></th>
+                                <td>{$line['artigo']}</td>
+                                <td>{$line['tam']}</td>
+                                <td class='td_input'><input type='text' value='{$line['qtde']}'></input></td>
+                                <td>{$line['valor']}</td>
+                                <td>{$line['valortotal']}</td>
+                                <td class='td_input'><input type='text' value='{$line['valoripi']}'></input></td>
+                                <td class='td_input'><input type='text' value='{$line['valorSubTrib']}'></input></td>
+                                <td>Valor Desc.ZF</td>
+                                <td class='td_input'><input type='text' value='{$line['aliqicms']}'></input></td>
+                                <td class='td_input'><input type='text' value='{$line['ValorICMS']}'></input></td>
+                                <td>Centro</td> <tr>";
+                        }
+                        echo $rows;
+                        ?>
                 </tbody>
             </table>
         </div>
@@ -186,7 +222,7 @@
         <form>
             <div class="row g-3 ">
                 <div class="col-auto">
-                    <input type="text" name="id" placeholder="Motivo" class="form-control" aria-describedby="passwordHelpInline" style="width: 80vw;margin-top: 20px;">
+                    <input type="text" name="id" placeholder="Motivo" class="form-control" aria-describedby="passwordHelpInline" style="width: 80vw;margin-top: 20px;" required>
                 </div>
             </div>
         </form>
